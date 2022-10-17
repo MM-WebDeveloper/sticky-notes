@@ -2,6 +2,7 @@ const express = require('express');
 const app = express();
 const path = require('path');
 const errorHandler = require('./middleware/errorHandler');
+const cookieParser = require('cookie-parser');
 const { logger } = require('./middleware/logger');
 
 const PORT = process.env.PORT || 3500;
@@ -9,6 +10,8 @@ const PORT = process.env.PORT || 3500;
 app.use(logger);
 
 app.use(express.json());
+
+app.use(cookieParser());
 
 app.use('/', express.static(path.join(__dirname, 'public')));
 
