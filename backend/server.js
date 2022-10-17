@@ -3,18 +3,18 @@ const app = express();
 const path = require('path');
 const errorHandler = require('./middleware/errorHandler');
 const cookieParser = require('cookie-parser');
+const cors = require('cors');
+const corsOptions = require('./config/corsOptions');
 const { logger } = require('./middleware/logger');
 
 const PORT = process.env.PORT || 3500;
 
 app.use(logger);
-
+app.use(cors(corsOptions));
 app.use(express.json());
-
 app.use(cookieParser());
 
 app.use('/', express.static(path.join(__dirname, 'public')));
-
 app.use('/', require('./routes/root'));
 
 app.all('*', (req, res) => {
